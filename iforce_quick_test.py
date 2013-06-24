@@ -172,8 +172,11 @@ class iforce_quick_testCommand(sublime_plugin.WindowCommand):
 		# Copy current file to test folder
 		print ('iForce: copy classes on Test folder')
 		try:
-			self.currentFile = self.window.active_view().file_name()
-			copy_to_test(self.currentFile, self.testFolder)
+			currentFiles = self.window.views()
+			if len(currentFiles) > 0:
+				for f in currentFiles:
+					self.currentFile = f.file_name()
+					copy_to_test(self.currentFile, self.testFolder)
 		except ValueError as e:
 			logging.exception('iForce: Unable to copy file to test.')
 			sublime.error_message('Unable to copy file to test:\n' + str(e))
