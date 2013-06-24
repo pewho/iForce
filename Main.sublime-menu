@@ -1,7 +1,7 @@
 [
 	{
-	    "id": "iForce",
-	    "caption": "iForce",
+	    "id": "iForceTest",
+	    "caption": "iForceTest",
 	    "children":
 	    [
 	        {
@@ -34,6 +34,21 @@
 	         		}
 	         	]
 	     	},
+	     	{
+     			"id": "testfiles",
+	    		"caption": "Test Files",
+	         	"children":
+	         	[
+	         		{
+	         			"caption": "Quick Test",
+	         			"command": "iforce_quick_test_all"
+	         		},
+	         		{
+	         			"caption": "Quick Test all open classes",
+	         			"command": "iforce_quick_test"
+	         		}
+	         	]
+     		},
 	     	{
 	        	"id": "iforce_about",
 	    		"caption": "About",

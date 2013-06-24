@@ -8,12 +8,18 @@
                 username = ${username}
                 password = ${password}
                 serverurl = ${serverurl}
+                debuglevel = ${debuglevel}
         </echo>
     </target>
 
     <!-- quickcompile -->
     <target name="qcompile">
         <sf:deploy username="${username}" password="${password}" serverurl="${serverurl}" deployRoot="payload"></sf:deploy>
+    </target>
+
+    <!-- quicktest -->
+    <target name="qtest">
+         <sf:deploy username="${username}" password="${password}" serverurl="${serverurl}" deployRoot="test" checkOnly="true" trace="true" logType="${debuglevel}" runAllTests="true"></sf:deploy>
     </target>
 
     <!-- refresh from server -->

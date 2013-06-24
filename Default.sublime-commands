@@ -14,5 +14,13 @@
     {
     	"caption": "iForce: Quick compile all open files",
     	"command": "iforce_quick_compile_all"
+    },
+    {
+        "caption": "iForce: Quick test all Classes",
+        "command": "iforce_quick_test_all"
+    },
+    {
+        "caption": "iForce: Quick test all open Classes",
+        "command": "iforce_quick_test"
     }
 ]
