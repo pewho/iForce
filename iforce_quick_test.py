@@ -121,7 +121,8 @@ def generate_build_xml(test_path):
 	fhandle.write('<property environment="env"/>\n\n')
 
 	fhandle.write('<target name="testopen" description="Test open file">\n')
-	fhandle.write('<sf:deploy username="${username}" password="${password}" serverurl="${serverurl}" deployRoot="' + TEST_FOLDER_NAME + '" checkOnly="true" trace="true" logType="${debuglevel}">\n')
+	fhandle.write('<record name="testOpenClasses.debug" action="start" append="false" />\n')
+	fhandle.write('<sf:deploy username="${username}" password="${password}" serverurl="${serverurl}" deployRoot="' + TEST_FOLDER_NAME + '" checkOnly="true" logType="${debuglevel}">\n')
 	
 	#Build the <runTest> command for each open class
 	ot = typesByFolder["classes"]
@@ -134,13 +135,14 @@ def generate_build_xml(test_path):
 
 	#Close file
 	fhandle.write('</sf:deploy>\n')
+	fhandle.write('<record name="testAllClasses.debug" action="stop" />\n')
 	fhandle.write('</target>\n')
 	fhandle.write('</project>')
 
 
 def test_files(sublime_command, test_path):
-	project_folder = os.path.dirname(test_path)
-	sublime_command.window.run_command('exec', {'cmd': [antBin, "-file", test_path + os.sep + "test_build.xml", "-propertyfile", "iForce_build.properties", "testopen"], 'working_dir':project_folder})
+	prj_folder = os.path.dirname(test_path)
+	sublime_command.window.run_command('exec', {'cmd': [antBin, "-file", test_path + os.sep + "test_build.xml", "-propertyfile", "iForce_build.properties", "testopen"], 'working_dir':prj_folder})
 
 class iforce_quick_testCommand(sublime_plugin.WindowCommand):
 	currentFile = None
@@ -188,8 +190,7 @@ class iforce_quick_testCommand(sublime_plugin.WindowCommand):
 		test_files(self, self.testFolder)
 
 def test_all_files(sublime_command, test_path):
-	project_folder = os.path.dirname(test_path)
-	sublime_command.window.run_command('exec', {'cmd': [antBin, "-file", test_path + os.sep + "iForce_build.xml", "-propertyfile", test_path + os.sep + "iForce_build.properties", "qtest"], 'working_dir':project_folder})
+	sublime_command.window.run_command('exec', {'cmd': [antBin, "-file", test_path + os.sep + "iForce_build.xml", "-propertyfile", test_path + os.sep + "iForce_build.properties", "qtest"], 'working_dir':test_path})
 
 class iforce_quick_test_allCommand(sublime_plugin.WindowCommand):
 	prjFolder = None

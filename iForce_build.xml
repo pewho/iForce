@@ -19,7 +19,9 @@
 
     <!-- quicktest -->
     <target name="qtest">
-         <sf:deploy username="${username}" password="${password}" serverurl="${serverurl}" deployRoot="test" checkOnly="true" trace="true" logType="${debuglevel}" runAllTests="true"></sf:deploy>
+        <record name="testAllClasses.debug" action="start" append="false" />
+            <sf:deploy username="${username}" password="${password}" serverurl="${serverurl}" deployRoot="test" checkOnly="true" logType="${debuglevel}" runAllTests="true"></sf:deploy>
+        <record name="testAllClasses.debug" action="stop" />
     </target>
 
     <!-- refresh from server -->
