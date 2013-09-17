@@ -16,5 +16,5 @@
         <members>*</members>
         <name>ApexTrigger</name>
     </types>
-    <version>22.0</version>
+    <version>28.0</version>
 </Package>

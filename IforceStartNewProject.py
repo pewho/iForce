@@ -12,25 +12,25 @@ def getunzipped(theurl, thedir):
   name = os.path.join(thedir, 'temp.zip')
   try:
     name, hdrs = urllib.urlretrieve(theurl, name)
-  except IOError, e:
-    print "iForce: Can't retrieve %r to %r: %s" % (theurl, thedir, e)
+  except IOError as e:
+    print ("iForce: Can't retrieve %r to %r: %s" % (theurl, thedir, e))
     return
   try:
     extract(name, thedir)
     os.unlink(name)
-  except zipfile.error, e:
-    print "iForce: Bad zipfile (from %r): %s" % (theurl, e)
+  except zipfile.error as e:
+    print ("iForce: Bad zipfile (from %r): %s" % (theurl, e))
     return
 
-class iforce_start_new_projectCommand(sublime_plugin.WindowCommand):
+class IforceStartNewProjectCommand(sublime_plugin.WindowCommand):
 
   def __init__(self, *args, **kwargs):
-    super(iforce_start_new_projectCommand, self).__init__(*args, **kwargs)
+    super(IforceStartNewProjectCommand, self).__init__(*args, **kwargs)
 
   def on_done(self, dirname):
     # print 'dirname: ' + dirname
     outputdir = dirname
-    iforce_path = sublime.packages_path() + '/iForce'
+    iforce_path = sublime.packages_path() + '/iForceTest'
 
     # copy build files to folder
     shutil.copy(iforce_path + '/iForce_build.xml', outputdir)
@@ -43,7 +43,7 @@ class iforce_start_new_projectCommand(sublime_plugin.WindowCommand):
         os.makedirs(outputdir + '/' + folder)
 
     # print 'outputdir: '+ self.outputdir
-    print 'iForce: iforce_start_new_project [DONE]'
+    print ('iForce: iforce_start_new_project [DONE]')
 
 
   def run(self, *args, **kwargs):

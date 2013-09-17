@@ -110,7 +110,7 @@ def deploy_files(sublime_command, payload_path):
 	sublime_command.window.run_command('exec', {'cmd': [antBin, "-file", "iForce_build.xml", "-propertyfile", "iForce_build.properties", "qcompile"], 'working_dir':project_folder})
 
 
-class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
+class IforceQuickCompileCommand(sublime_plugin.WindowCommand):
 	currentFile = None
 	prjFolder = None
 	payloadFolder = None
@@ -122,15 +122,14 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 			self.window.active_view().run_command('save')
 
 		self.prjFolder = self.window.folders()[0]
-		print 'iForce: Project folder path' + self.prjFolder
+		print ('iForce: Project folder path' + self.prjFolder)
 		self.payloadFolder = self.prjFolder + os.sep + PAYLOAD_FOLDER_NAME
-		print 'iForce: Payload folder name' + self.payloadFolder
-
+		print ('iForce: Payload folder name' + self.payloadFolder)
 		try:
 			shutil.rmtree(self.payloadFolder)
-			print 'iForce: Old payload deleted'
-		except Exception, e:
-			print 'iForce: Couldn\'t delete old payload dir:', str(e)
+			print ('iForce: Old payload deleted')
+		except Exception as e:
+			print ('iForce: Couldn\'t delete old payload dir:', str(e))
 
 		# create dir
 		os.makedirs(self.payloadFolder)
@@ -139,7 +138,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 		try:
 			self.currentFile = self.window.active_view().file_name()
 			copy_to_payload(self.currentFile, self.payloadFolder)
-		except ValueError, e:
+		except ValueError as e:
 			logging.exception('iForce: Unable to copy file to payload.')
 			sublime.error_message('Unable to copy file to payload:\n' + str(e))
 			return
@@ -149,7 +148,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 		deploy_files(self, self.payloadFolder)
 
 
-class iforce_quick_compile_allCommand(sublime_plugin.WindowCommand):
+class IforceQuickCompileAllCommand(sublime_plugin.WindowCommand):
 
 	def run(self, *args, **kwargs):
 		# Get the list of open files
@@ -167,7 +166,7 @@ class iforce_quick_compile_allCommand(sublime_plugin.WindowCommand):
 					view.run_command('save')
 				try:
 					copy_to_payload(filepath, payloadFolder)
-				except ValueError, e:
+				except ValueError as e:
 					logging.debug(str(e))
 
 		#write package file and deploy

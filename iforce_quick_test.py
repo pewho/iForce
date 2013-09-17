@@ -144,7 +144,7 @@ def test_files(sublime_command, test_path):
 	prj_folder = os.path.dirname(test_path)
 	sublime_command.window.run_command('exec', {'cmd': [antBin, "-file", test_path + os.sep + "test_build.xml", "-propertyfile", "iForce_build.properties", "testopen"], 'working_dir':prj_folder})
 
-class iforce_quick_testCommand(sublime_plugin.WindowCommand):
+class IforceQuickTestCommand(sublime_plugin.WindowCommand):
 	currentFile = None
 	prjFolder = None
 	testFolder = None
@@ -192,7 +192,7 @@ class iforce_quick_testCommand(sublime_plugin.WindowCommand):
 def test_all_files(sublime_command, test_path):
 	sublime_command.window.run_command('exec', {'cmd': [antBin, "-file", test_path + os.sep + "iForce_build.xml", "-propertyfile", test_path + os.sep + "iForce_build.properties", "qtest"], 'working_dir':test_path})
 
-class iforce_quick_test_allCommand(sublime_plugin.WindowCommand):
+class IforceQuickTestAllCommand(sublime_plugin.WindowCommand):
 	prjFolder = None
 
 	def run(self, *args, **kwargs):	
